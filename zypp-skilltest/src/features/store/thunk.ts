@@ -5,9 +5,8 @@ import { BuienradarAPI, buienradarAPISchema } from "../../types/measurements";
 
 export const fetchWeatherData = createAsyncThunk<BuienradarAPI, string>(
     'fetchWeatherData',
-    async (query, {rejectWithValue}) => {
+    async (_query, {rejectWithValue}) => {
         try {
-
             const validData = buienradarAPISchema.safeParse(mockData);
 
             if (validData.error) {
