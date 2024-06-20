@@ -1,5 +1,5 @@
 import { createSelector, createSlice, nanoid } from "@reduxjs/toolkit";
-import { Measurement, Station } from "../../types/measurements";
+import { ChartDataType, Measurement, Station } from "../../types/measurements";
 import { fetchWeatherData } from "./thunk";
 import { RootState } from "../../store";
 
@@ -14,8 +14,7 @@ export type StationStore = {
     avgTemp: number | null;
     biggestDiff: { name: string, diff: number} | null;
     northSeaStation: string | null;
-
-
+    chartData: ChartDataType
     loading: boolean;
     error: string | null;
 };
@@ -29,7 +28,12 @@ const initialState: StationStore = {
     higherTemp: null,
     avgTemp: null,
     biggestDiff: null,
-    northSeaStation: null
+    northSeaStation: null,
+    chartData: {
+        x: [],
+        y: []
+    },
+
 }
 
 
@@ -122,9 +126,10 @@ const stationSlice = createSlice({
                 }
 
                 }
-                
 
-                
+                // adding data for the chart
+                state.chartData.y.push(measurement.temperature ? measurement.temperature : 0);
+                state.chartData.x.push(station.stationname);
             }
 
              // Calculate average temperature

@@ -42,9 +42,15 @@ export const buienradarAPISchema = z.array(z.object({
     regio: z.string(),
 }))
 
+const chartDataSchema = z.object({
+    x: z.array(z.string()),
+    y: z.array(z.number()),
+})
+
 
 
 
 export type Measurement = z.infer<typeof measurementSchema>;
 export type Station = z.infer<typeof stationSchema>;
 export type BuienradarAPI = z.infer<typeof buienradarAPISchema>;
+export type ChartDataType = z.infer<typeof chartDataSchema>;

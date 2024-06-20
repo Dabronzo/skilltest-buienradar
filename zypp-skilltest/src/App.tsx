@@ -2,8 +2,9 @@ import { useEffect } from 'react'
 
 import './App.css'
 import { useAppDispatch, useAppSelector } from './hooks'
-import { stationSelector } from './features/store/measurements'
+import { stationSelector } from './features/store/data'
 import { fetchWeatherData } from './features/store/thunk'
+import ChartPreview from './features/chart/Chart'
 
 const  App = () =>  {
   const stationsData = useAppSelector(stationSelector())
@@ -56,7 +57,17 @@ const  App = () =>  {
       ): (
         <p>Loading average station...</p>
       )}
-    </div>
+
+      {stationsData.measurements !== null ? (
+        <div>
+          <ChartPreview data={stationsData.chartData} />
+        </div>
+      ): (
+        <p>Loading average station...</p>
+      )}
+      </div>
+      
+
   );
 };
 
