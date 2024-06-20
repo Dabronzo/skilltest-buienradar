@@ -21,14 +21,3 @@ export const fetchWeatherData = createAsyncThunk<BuienradarAPI, string>(
         }
     }
 )
-
-
-// Question 5: Which weather station recorded the highest temperature?
-
-// Question 6: What is the average temperature?
-
-// Question 7: What is the station with the biggest difference between feel temperature and the actual temperature?
-
-// Question 8: Which weather station is located in the North Sea?
-
-// Question 9: Create a bar chart, using a python package of your choice, with the temperature for each station.

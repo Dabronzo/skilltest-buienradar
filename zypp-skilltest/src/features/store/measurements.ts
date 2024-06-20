@@ -138,6 +138,7 @@ const stationSlice = createSlice({
 
 const selectStationData = (state: RootState) => state.stations;
 
+
 export const stationSelector = () => createSelector([selectStationData], (stations) => {
     return stations;
 })

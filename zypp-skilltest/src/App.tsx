@@ -1,13 +1,11 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect } from 'react'
+
 import './App.css'
 import { useAppDispatch, useAppSelector } from './hooks'
 import { stationSelector } from './features/store/measurements'
 import { fetchWeatherData } from './features/store/thunk'
 
 const  App = () =>  {
-  const [count, setCount] = useState(0);
   const stationsData = useAppSelector(stationSelector())
   const dispatch = useAppDispatch();
 
@@ -18,30 +16,48 @@ const  App = () =>  {
   },[]);
 
   return (
-    <>
-   
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Weather Statistics</h1>
+
+      {stationsData.higherTemp ? (
+        <div className="mb-4">
+          <h2 className="text-xl font-semibold">Highest Temperature</h2>
+          <p>Station: {stationsData.higherTemp.name}</p>
+          <p>Temperature: {stationsData.higherTemp.temp}°C</p>
+        </div>
+      ) : (
+        <p>Loading highest temperature...</p>
+      )}
+
+      {stationsData.biggestDiff ? (
+        <div className="mb-4">
+          <h2 className="text-xl font-semibold">Biggest Temperature Difference</h2>
+          <p>Station: {stationsData.biggestDiff.name}</p>
+          <p>Difference: {stationsData.biggestDiff.diff.toFixed(2)}°C</p>
+        </div>
+      ) : (
+        <p>Loading biggest temperature difference...</p>
+      )}
+
+      {stationsData.avgTemp !== null ? (
+        <div>
+          <h2 className="text-xl font-semibold">Average Temperature</h2>
+          <p>Average Temperature: {stationsData.avgTemp.toFixed(2)}°C</p>
+        </div>
+      ) : (
+        <p>Loading average temperature...</p>
+      )}
+
+      {stationsData.northSeaStation !== null ? (
+         <div>
+         <h2 className="text-xl font-semibold">North Sea Station</h2>
+         <p>Station Name: {stationsData.northSeaStation}°C</p>
+       </div>
+      ): (
+        <p>Loading average station...</p>
+      )}
+    </div>
+  );
+};
 
 export default App
