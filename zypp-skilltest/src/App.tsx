@@ -1,13 +1,25 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { useAppDispatch, useAppSelector } from './hooks'
+import { stationSelector } from './features/store/measurements'
+import { fetchWeatherData } from './features/store/thunk'
 
-function App() {
-  const [count, setCount] = useState(0)
+const  App = () =>  {
+  const [count, setCount] = useState(0);
+  const stationsData = useAppSelector(stationSelector())
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (!stationsData.stations) {
+      dispatch(fetchWeatherData('someURL'));
+    }
+  },[]);
 
   return (
     <>
+   
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />

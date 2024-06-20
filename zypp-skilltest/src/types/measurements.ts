@@ -18,15 +18,14 @@ const measurementSchema = z.object({
 const stationSchema = z.object({
     id: z.string(),
     stationid: z.number(),
-    stationname: z.string().optional(),
+    stationname: z.string(),
     lat: z.number(),
     lon: z.number(),
     regio: z.string(),
-    measurements: measurementSchema
 });
 
-const buienradarAPISchema = z.object({
-    id: z.string(),
+export const buienradarAPISchema = z.array(z.object({
+    $id: z.string(),
     timestamp: z.string().optional(),
     temperature: z.number().optional(),
     groundtemperature: z.number().optional(),
@@ -37,12 +36,11 @@ const buienradarAPISchema = z.object({
     precipitation: z.number().optional(),
     sunpower: z.number().optional(),
     stationid: z.number(),
-    stationname: z.string().optional(),
+    stationname: z.string(),
     lat: z.number(),
     lon: z.number(),
     regio: z.string(),
-    measurements: measurementSchema
-})
+}))
 
 
 
